@@ -44,14 +44,7 @@ namespace webapi_csharp.Repositorios
 
         public void DeleteBook(int id)
         {
-            var book = _listaBooks.Where(cli => cli.Id == id);
-
-            var update = book.FirstOrDefault();
-
-            update.Id = 0;
-            update.Author = null;
-            update.Description = null;
-            update.Title = null;
+            _listaBooks.RemoveAll(cli => cli.Id == id);
         }
     }
 }
