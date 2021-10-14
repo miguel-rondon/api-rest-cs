@@ -29,5 +29,16 @@ namespace webapi_csharp.Repositorios
         {
             _listaBooks.Add(nuevoBook);
         }
+
+        public void UpdateBook(Book uBook, int id)
+        {
+            var book = _listaBooks.Where(cli => cli.Id == id);
+
+            var update = book.FirstOrDefault();
+
+            update.Author = uBook.Author;
+            update.Description = uBook.Description;
+            update.Title = uBook.Title;
+        }
     }
 }

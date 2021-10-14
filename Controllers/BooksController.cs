@@ -44,5 +44,24 @@ namespace webapi_csharp.Controllers
             rpCli.Agregar(nuevoBook);
             return CreatedAtAction(nameof(AgregarBook), nuevoBook);
         }
+
+        [HttpPut("{id}")]
+        public IActionResult UpdateBook(Book nuevoBook, int id)
+        {
+            RPBooks rpCli = new RPBooks();
+
+            var cliRet = rpCli.ObtenerBook(id);
+
+            if (cliRet == null)
+            {
+                var nf = NotFound("El libro " + id.ToString() + " no existe.");
+                return nf;
+            }
+
+            rpCli.UpdateBook(nuevoBook, id);
+            cliRet = rpCli.ObtenerBook(id);
+
+            return Ok(cliRet);
+        }
     }
 }
