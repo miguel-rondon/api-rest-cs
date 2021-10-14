@@ -45,7 +45,7 @@ namespace webapi_csharp.Controllers
             return CreatedAtAction(nameof(AgregarBook), nuevoBook);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("up/{id}")]
         public IActionResult UpdateBook(Book nuevoBook, int id)
         {
             RPBooks rpCli = new RPBooks();
@@ -58,10 +58,27 @@ namespace webapi_csharp.Controllers
                 return nf;
             }
 
-            rpCli.UpdateBook(nuevoBook, id);
-            cliRet = rpCli.ObtenerBook(id);
+            rpCli.UpdateBook(nuevoBook,id);
 
-            return Ok(cliRet);
+            return Ok(rpCli.ObtenerBooks());
+        }
+
+        [HttpDelete("rm/{id}")]
+        public IActionResult DeleteBook(int id)
+        {
+            RPBooks rpCli = new RPBooks();
+
+            var cliRet = rpCli.ObtenerBook(id);
+
+            if (cliRet == null)
+            {
+                var nf = NotFound("El libro " + id.ToString() + " no existe.");
+                return nf;
+            }
+
+            rpCli.DeleteBook(id);
+
+            return Ok(rpCli.ObtenerBooks());
         }
     }
 }

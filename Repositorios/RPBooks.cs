@@ -36,9 +36,22 @@ namespace webapi_csharp.Repositorios
 
             var update = book.FirstOrDefault();
 
+            update.Id = id;
             update.Author = uBook.Author;
             update.Description = uBook.Description;
             update.Title = uBook.Title;
+        }
+
+        public void DeleteBook(int id)
+        {
+            var book = _listaBooks.Where(cli => cli.Id == id);
+
+            var update = book.FirstOrDefault();
+
+            update.Id = 0;
+            update.Author = null;
+            update.Description = null;
+            update.Title = null;
         }
     }
 }
